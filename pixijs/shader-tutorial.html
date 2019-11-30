@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <title>PixiJS Shaders</title>
+  </head>
+</html>
+<body>
+  <script id="shader" type="shader">
+    precision mediump float;
+
+    varying vec2 vTextureCoord;//The coordinates of the current pixel
+    uniform sampler2D uSampler;//The image data
+
+    void main(void) {
+       gl_FragColor = texture2D(uSampler, vTextureCoord);
+    }
+  </script>
+  <script
+    type="text/javascript"
+    src="https://cdn.jsdelivr.net/pixi.js/3.0.7/pixi.js"
+  ></script>
+  <script>
+    // Get the screen width and height
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+    // Chooses either WebGL if supported or falls back to Canvas rendering
+    var renderer = new PIXI.autoDetectRenderer(width, height);
+    // Add the render view object into the page
+    document.body.appendChild(renderer.view);
+
+    // The stage is the root container that will hold everything in our scene
+    var stage = new PIXI.Container();
+
+    // Load an image and create an object
+    var lineLetter = PIXI.Sprite.fromImage("../assets/line-letter.jpg");
+    // Set it at the center of the screen
+    lineLetter.x = width / 2;
+    lineLetter.y = height / 2;
+    // Make sure the center point of the image is at its center, instead of the default top left
+    lineLetter.anchor.set(0.5);
+
+    var shaderCode = document.getElementById("shader").innerHTML;
+    var simpleShader = new PIXI.AbstractFilter("", shaderCode);
+    lineLetter.filters = [simpleShader];
+    // Add it to the screen
+    stage.addChild(lineLetter);
+
+    function animate() {
+      // start the timer for the next animation loop
+      requestAnimationFrame(animate);
+      // this is the main render call that makes pixi draw your container and its children.
+      renderer.render(stage);
+    }
+    animate();
+  </script>
+</body>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+  }
+</style>

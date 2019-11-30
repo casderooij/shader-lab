@@ -15,14 +15,15 @@ void main(){
 
 	// Make the distance field
 	d = length(abs(st)- .3);
-	d = length( min(abs(st)-.3,0.) );
-  // d = length( max(abs(st)-.3,0.) );
+	// d = length( min(abs(st)-.3,0.) );
+//   d = length( max(abs(st)-.3,0.) );
 
 	// Visualize the distance field
 	gl_FragColor = vec4(vec3(fract(d*10.0)), 1.0);
 
 	// Drawing with the distance field
-  // gl_FragColor = vec4(vec3( step(.3,d) ),1.0);
-  // gl_FragColor = vec4(vec3( step(.3,d) * step(d,.4)),1.0);
-  // gl_FragColor = vec4(vec3( smoothstep(.3,.4,d)* smoothstep(.6,.5,d)) ,1.0);
+//   gl_FragColor = vec4(vec3( step(.3,d) ),1.0);
+//   gl_FragColor = vec4(vec3( step(.3,d) * step(d,.4)),1.0);
+//   gl_FragColor = vec4(vec3( smoothstep(.3,.4,d)* smoothstep(.6,.5,d)) ,1.0);
+//   gl_FragColor = vec4(vec3( smoothstep(.001,1.,d)) ,1.0);
 }
